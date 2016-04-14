@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config xmlns="http://thelia.net/schema/dic/config"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://thelia.net/schema/dic/config http://thelia.net/schema/dic/config/thelia-1.0.xsd">
+
+    <services>
+        <service id="admin_subdomain.kernel_controller" class="AdminSubdomain\EventListener\KernelControllerListener" scope="request">
+            <argument type="service" id="service_container" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+        <service id="admin_subdomain.kernel_response" class="AdminSubdomain\EventListener\KernelResponseListener" scope="request">
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
+</config>
