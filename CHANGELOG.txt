@@ -1,0 +1,4 @@
+# 0.2.0
+
+- Adds the case or Thelia is already on a subdomain
+- This module is compatible with the BackOfficePath Module

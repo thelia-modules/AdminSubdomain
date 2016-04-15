@@ -44,6 +44,19 @@ class ResponseHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedContent, $newContent);
     }
 
+    public function testAddSubdomainWithSubdomain()
+    {
+        $request = Request::create('http://test.thelia.loc/web/admin/modules', 'GET', [], [], [], [
+            'SCRIPT_FILENAME' => '/var/www/web/index.php',
+            'SCRIPT_NAME' => '/web/index.php'
+        ]);
+
+        $content = $this->getFixturesBefore('with-subdomain');
+        $newContent = ResponseHelper::addSubdomain($request, $content, 'test');
+        $expectedContent = $this->getFixturesAfter('with-subdomain');
+        $this->assertEquals($expectedContent, $newContent);
+    }
+
     /**
      * @param string $name
      * @return string

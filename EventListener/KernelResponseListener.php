@@ -30,6 +30,10 @@ class KernelResponseListener implements EventSubscriberInterface
      */
     public function addSubdomainInResponse(FilterResponseEvent $event)
     {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
         /** @var Request $request */
         $request = $event->getRequest();
 
@@ -54,7 +58,7 @@ class KernelResponseListener implements EventSubscriberInterface
     {
         return [
             KernelEvents::RESPONSE => [
-                ['addSubdomainInResponse', 32]
+                ['addSubdomainInResponse', 15]
             ]
         ];
     }
