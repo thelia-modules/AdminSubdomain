@@ -11,7 +11,7 @@ How to install
 Add it in your main thelia composer.json file
 
 ```
-composer require thelia/admin-subdomain-module:~0.1.0
+composer require thelia/admin-subdomain-module:~0.2.0
 ```
 
 #### Manually
