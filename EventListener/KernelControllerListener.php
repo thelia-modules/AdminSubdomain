@@ -18,6 +18,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\RequestContext;
 use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Core\HttpFoundation\Request;
+use Thelia\Core\HttpKernel\Exception\RedirectException;
 
 /**
  * Class KernelControllerListener
@@ -53,6 +54,10 @@ class KernelControllerListener implements EventSubscriberInterface
             $strictMode = (bool) AdminSubdomain::getConfigValue(AdminSubdomain::CONFIG_KEY_STRICT_MODE, false);
 
             if ($configSubdomain === $currentSubdomain) {
+                if ($request->getPathInfo() === '/') {
+                    throw new RedirectException($request->getBasePath() . '/admin');
+                }
+
                 $this->overrideSingletonUrl($request);
 
                 if (!$request->fromAdmin() && $strictMode) {

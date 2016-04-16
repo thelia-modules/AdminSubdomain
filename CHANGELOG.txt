@@ -1,3 +1,7 @@
+# 0.2.1
+
+- Fix bug, when the subdomain url has no path. An automatic redirection on the administrator panel is now performed.
+
 # 0.2.0
 
 - Adds the case or Thelia is already on a subdomain
