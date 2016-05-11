@@ -19,6 +19,7 @@ use Symfony\Component\Routing\RequestContext;
 use Thelia\Controller\Admin\BaseAdminController;
 use Thelia\Core\HttpFoundation\Request;
 use Thelia\Core\HttpKernel\Exception\RedirectException;
+use Thelia\Model\ConfigQuery;
 
 /**
  * Class KernelControllerListener
@@ -91,7 +92,16 @@ class KernelControllerListener implements EventSubscriberInterface
     {
         /** @var RequestContext $requestContext */
         $requestContext = $this->container->get('router.admin')->getContext();
-        $requestContext->setHost(RequestHelper::extractDomain($request->getHost()));
+
+        $siteUrl = ConfigQuery::read('url_site', '');
+
+        if (!empty($siteUrl)) {
+            $host = RequestHelper::extractSubdomain($siteUrl) . '.' . RequestHelper::extractDomain($siteUrl);
+        } else {
+            $host = RequestHelper::extractDomain($request->getHost());
+        }
+
+        $requestContext->setHost($host);
     }
 
     public static function getSubscribedEvents()

@@ -16,11 +16,13 @@ namespace AdminSubdomain\Helper;
 class RequestHelper
 {
     /**
-     * @param string $host
+     * @param string $string
      * @return string
      */
-    public static function extractDomain($host)
+    public static function extractDomain($string)
     {
+        $host = static::extractHost($string);
+
         if (preg_match("/(?P<domain>[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i", $host, $matches)) {
             return $matches['domain'];
         }
@@ -29,15 +31,34 @@ class RequestHelper
     }
 
     /**
-     * @param string $host
+     * @param string $string
      * @return string
      */
-    public static function extractSubdomain($host)
+    public static function extractSubdomain($string)
     {
-        $domain = static::extractDomain($host);
+        $domain = static::extractDomain($string);
+
+        $host = static::extractHost($string);
 
         $subDomains = rtrim(strstr($host, $domain, true), '.');
 
         return $subDomains;
+    }
+
+    /**
+     * @param string $string
+     * @return null|string
+     */
+    public static function extractHost($string)
+    {
+        $parse = parse_url($string);
+
+        if (isset($parse['host'])) {
+            return $parse['host'];
+        } elseif (isset($parse['path'])) {
+            return $parse['path'];
+        }
+
+        return null;
     }
 }

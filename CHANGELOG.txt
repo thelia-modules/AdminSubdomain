@@ -1,3 +1,7 @@
+# 0.2.2
+
+- Fix bug, when Thelia is already in a subdomain. The subdomain was not kept in the administration URLs.
+
 # 0.2.1
 
 - Fix bug, when the subdomain url has no path. An automatic redirection on the administrator panel is now performed.

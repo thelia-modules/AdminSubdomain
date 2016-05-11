@@ -57,6 +57,19 @@ class ResponseHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedContent, $newContent);
     }
 
+    public function testAddSubdomainWithComplexSubdomain()
+    {
+        $request = Request::create('http://admin-test.thelia.loc/web/admin/modules', 'GET', [], [], [], [
+            'SCRIPT_FILENAME' => '/var/www/web/index.php',
+            'SCRIPT_NAME' => '/web/index.php'
+        ]);
+
+        $content = $this->getFixturesBefore('with-complex-subdomain');
+        $newContent = ResponseHelper::addSubdomain($request, $content, 'admin-test');
+        $expectedContent = $this->getFixturesAfter('with-complex-subdomain');
+        $this->assertEquals($expectedContent, $newContent);
+    }
+
     /**
      * @param string $name
      * @return string
