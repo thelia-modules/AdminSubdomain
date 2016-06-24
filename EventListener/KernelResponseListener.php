@@ -11,7 +11,9 @@ namespace AdminSubdomain\EventListener;
 use AdminSubdomain\AdminSubdomain;
 use AdminSubdomain\Helper\ResponseHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Thelia\Core\HttpFoundation\Request;
@@ -42,6 +44,10 @@ class KernelResponseListener implements EventSubscriberInterface
         if ($request->fromAdmin() && !empty($configSubdomain)) {
             /** @var Response $response */
             $response = $event->getResponse();
+
+            if ($response instanceof BinaryFileResponse || $response instanceof StreamedResponse) {
+                return;
+            }
 
             if ($response->isRedirection()) {
                 $response->setTargetUrl(
