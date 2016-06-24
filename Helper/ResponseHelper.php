@@ -31,7 +31,7 @@ class ResponseHelper
         $domain = RequestHelper::extractDomain($host);
 
         $content = preg_replace(
-            '#\/[^\/]*\.?' . preg_quote($domain) . '(' . preg_quote($basePath) . '(?:\/index(?:_dev)?\.php)?\/(?:admin|assets\/backOffice))#i',
+            '#\/[^\/]*\.?' . preg_quote($domain) . '(' . preg_quote($basePath) . '(?:\/index(?:_dev)?\.php)?\/(?:admin|assets\/backOffice|tinymce))#i',
             '/' . $subDomain . '.' . $domain . '$1',
             $content
         );
