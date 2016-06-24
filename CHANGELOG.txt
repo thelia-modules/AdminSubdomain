@@ -1,3 +1,11 @@
+# 0.2.4
+
+- Add compatibility with TinyMCE Module.
+
+# 0.2.3
+
+- Add ignore the treatment if the response is of binaries type or streamed type. Thanks @bilhackmac !
+
 # 0.2.2
 
 - Fix bug, when Thelia is already in a subdomain. The subdomain was not kept in the administration URLs.
